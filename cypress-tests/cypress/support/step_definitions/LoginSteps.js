@@ -23,5 +23,6 @@ When(/^User click on LOGIN IN button$/, () => {
 });
 
 Then(/^User see Home page$/, () => {
-
+	HomePage.validateWelcomeToTheAdministrationMessage()
+	HomePage.validarUsernameText(Cypress.env("username"))
 });
