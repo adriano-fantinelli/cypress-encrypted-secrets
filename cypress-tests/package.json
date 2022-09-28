@@ -1,0 +1,34 @@
+{
+  "name": "cypress-app-actions-example",
+  "version": "1.0.0",
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/support/steps",
+    "nonGlobalStepDefinitions": false,
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/support/reports",
+      "filePrefix": "",
+      "fileSuffix": ""
+    }
+  },
+  "scripts": {
+    "cy:test": "cypress run --config video=false --env allure=true",
+    "cy:open": "cypress open",
+    "allure:clear": "rm -r allure-results/ allure-report || true",
+    "allure:report": "allure generate allure-results",
+    "test:reporter": "npx npm-run-all allure:clear test allure:report",
+    "allure:open": "allure open allure-report",
+    "report-cucumber-json": "cucumber --format json"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^11.5.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.3",
+    "@shelex/cypress-allure-plugin": "2.23.0",
+    "cypress": "^10.3.1",
+    "esbuild": "^0.14.50",
+    "faker": "^5.5.3",
+    "joi": "^17.6.0",
+    "npm-run-all": "^4.1.5"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules
+allure-results
+.idea
+report
+cypress/support/reports
+screenshots
+videos
+package-lock.json
+cypress.env.json
