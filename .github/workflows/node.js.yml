@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - run: cd server
-    - run: npm install
-    - run: npm run prisma:generate
-    - run: npm run docker:db
-    - run: npm run db:init
-    - run: npm start
+    - run: |
+        cd server
+        npm install
+        npm run prisma:generate
+        npm run docker:db
+        npm run db:init
+        npm start
