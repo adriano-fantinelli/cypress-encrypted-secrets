@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
-        cd application\server
+        cd application/server
         npm install
         npm run prisma:generate
         npm run docker:db
