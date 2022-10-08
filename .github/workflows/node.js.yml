@@ -1,0 +1,22 @@
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node18.6.0-chrome105-ff104
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - run: npm ci
+    - run: cd server
+    - run: npm install
+    - run: npm run prisma:generate
+    - run: npm run docker:db
+    - run: npm run db:init
+    - run: npm start
