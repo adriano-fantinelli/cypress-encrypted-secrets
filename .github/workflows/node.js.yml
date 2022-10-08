@@ -11,7 +11,15 @@ jobs:
     container: cypress/browsers:node18.6.0-chrome105-ff104
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout 
+      uses: actions/checkout@v3
+      
+    - name: Install Compose 
+      uses: ndeloof/install-docker-compose@v2
+      with:
+        version: v2.1.0
+        legacy: true
+    
     - run: |
         cd application/server
         npm install
