@@ -15,10 +15,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Install Compose 
-      uses: ndeloof/install-docker-compose@v2
-      with:
-        version: v2.1.0
-        legacy: true
+      uses: ndeloof/install-compose-action@v0.0.1
     
     - run: |
         cd application/server
