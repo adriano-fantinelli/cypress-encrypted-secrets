@@ -14,14 +14,9 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v3
   
-    - name: Install docker 
-      uses: docker-practice/actions-setup-docker@master
+    - name: Run server
+      working-directory: ./application/server
     - run: |
-        set -x
-        docker version
-    
-    - run: |
-        cd application/server
         npm install
         npm run prisma:generate
         npm run docker:db
