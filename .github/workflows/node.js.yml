@@ -14,16 +14,15 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v3
   
-    - name: Install docker 
-      uses: docker-practice/actions-setup-docker@master
-    - run: |
-        set -x
-        docker version
-    
     - run: |
         cd application/server
         npm install
         npm run prisma:generate
+        
+    - name: Install docker 
+      uses: docker-practice/actions-setup-docker@master
+    - run: |
+        docker version   
         npm run docker:db
         npm run db:init
         npm start
