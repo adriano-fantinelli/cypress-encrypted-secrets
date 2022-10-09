@@ -11,12 +11,15 @@ jobs:
     container: cypress/browsers:node18.6.0-chrome105-ff104
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+     
       - name: Run server
         working-directory: ./application/server
         run: |
           npm install
           npm run prisma:generate
+          docker -v
           npm run docker:db
           npm run db:init
           npm start
