@@ -13,21 +13,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
      
-    - name: Run server
+    - name: Server run
       working-directory: ./application/server
       run: |
         npm install
         npm run build
         
-    - name: Run admin-ui
+    - name: Admin-ui run
       working-directory: ./application/admin-ui
       run: |
         npm install
         yarn build
     
     - name: Write the cypress.env.json file
+      working-directory: ./cypress-tests
       run: |
         echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
       
-    - name: Cypress run 
-      uses: cypress-io/github-action@v3
+    - name: Cypress run
+      working-directory: ./cypress-tests
+      run: |
+        npx cypress run
