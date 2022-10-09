@@ -16,9 +16,11 @@ jobs:
     - name: Run server
       working-directory: ./application/server
       run: |
-        docker -v
         npm install
-        npm run prisma:generate
-        npm run docker:db
-        npm run db:init
-        npm start
+        npm run build
+        
+    - name: Run admin-ui
+      working-directory: ./application/admin-ui
+      run: |
+        npm install
+        yarn build
