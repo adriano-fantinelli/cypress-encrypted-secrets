@@ -24,3 +24,10 @@ jobs:
       run: |
         npm install
         yarn build
+    
+    - name: Write the cypress.env.json file
+      run: |
+        echo '${{ secrets.ENV_CYPRESS_CI }}' > cypress.env.json
+      
+    - name: Cypress run 
+      uses: cypress-io/github-action@v3
