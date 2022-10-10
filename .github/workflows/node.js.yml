@@ -44,7 +44,7 @@ jobs:
         echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
       
     - name: Cypress run
-      uses: cypress-io/github-action@v3
-      with: 
-        command: npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
-        cache-dependency-path: ./cypress-tests/package-lock.json`
+      working-directory: ./cypress-tests
+      run: |
+       npm i
+       npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
