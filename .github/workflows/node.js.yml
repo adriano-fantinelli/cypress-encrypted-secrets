@@ -33,7 +33,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node18.6.0-chrome105-ff104
-
+    needs: build
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -47,3 +47,4 @@ jobs:
       uses: cypress-io/github-action@v3
       with: 
         command: npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
+        cache-dependency-path: ./cypress-tests/package-lock.json`
