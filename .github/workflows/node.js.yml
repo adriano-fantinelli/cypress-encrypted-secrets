@@ -2,6 +2,11 @@ name: Node.js CI
 
 on:
   workflow_dispatch:
+    inputs:
+      amb:
+        description: 'Selecionar algum destes ambientes: dev / hlg'
+        required: false
+        default: 'hlg'
   pull_request:
     branches: [ "main" ]
 
@@ -24,13 +29,21 @@ jobs:
       run: |
         npm install
         yarn build
-    
+        
+  cypress-run:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node18.6.0-chrome105-ff104
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: Write the cypress.env.json file
       working-directory: ./cypress-tests
       run: |
         echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
       
     - name: Cypress run
-      working-directory: ./cypress-tests
-      run: |
-        npx cypress run
+      uses: cypress-io/github-action@v3
+      with: 
+        command: npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
