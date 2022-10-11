@@ -1,5 +1,4 @@
 name: Node.js CI
-
 on:
   workflow_dispatch:
     inputs:
@@ -9,23 +8,28 @@ on:
         default: 'hlg'
   pull_request:
     branches: [ "main" ]
-
 jobs:
-  build:
+  server-run:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-     
+
     - name: Server run
-      uses: cypress-io/github-action@v2
-      with:
-        project: ./application/server
-        command: npm install, npm run prisma:generate, npm run docker:db, npm run db:init
-        start: npm start
-        wait-on: 'http://localhost:3000/api/'
+      working-directory: ./application/server
+      run: |
+        npm install
+        npm run prisma:generate
+        npm run docker:db
+        npm run db:init
+        npm start
         
+  admin-ui-run:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Admin-ui run
       working-directory: ./application/admin-ui
       run: |
@@ -35,7 +39,6 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node18.6.0-chrome105-ff104
-    needs: build
     steps:
     - name: Checkout
       uses: actions/checkout@v3
