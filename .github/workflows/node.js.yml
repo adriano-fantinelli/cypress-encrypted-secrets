@@ -24,7 +24,7 @@ jobs:
         project: ./application/server
         command: npm install, npm run prisma:generate, npm run docker:db, npm run db:init
         start: npm start
-        wait-on: 'http://localhost:8080'
+        wait-on: 'http://localhost:3000/api/'
         
     - name: Admin-ui run
       working-directory: ./application/admin-ui
