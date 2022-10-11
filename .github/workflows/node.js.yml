@@ -34,7 +34,7 @@ jobs:
       working-directory: ./application/admin-ui
       run: |
         npm install
-        yarn build
+        yarn start
         
   cypress-run:
     runs-on: ubuntu-latest
