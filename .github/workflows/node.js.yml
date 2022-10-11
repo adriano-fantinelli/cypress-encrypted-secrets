@@ -22,19 +22,13 @@ jobs:
         npm run prisma:generate
         npm run docker:db
         npm run db:init
-        npm start
+        npm start --if-present
         
-  admin-ui-run:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
     - name: Admin-ui run
       working-directory: ./application/admin-ui
       run: |
         npm install
-        yarn start
+        yarn start --if-present
         
   cypress-run:
     runs-on: ubuntu-latest
