@@ -20,6 +20,7 @@ jobs:
       with:
         project: ./application/server
         start: |
+          npm run
           npm install
           npm run prisma:generate
           npm run docker:db
