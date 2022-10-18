@@ -5,5 +5,4 @@ report
 cypress/support/reports
 screenshots
 videos
-package-lock.json
 cypress.env.json
