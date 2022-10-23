@@ -1,11 +1,6 @@
 name: Cypress Encrypted Secrets run
 on:
   workflow_dispatch:
-    inputs:
-      amb:
-        description: 'Selecionar algum destes ambientes: dev / hlg'
-        required: false
-        default: 'hlg'
   pull_request:
     branches: [ "main" ]
     
