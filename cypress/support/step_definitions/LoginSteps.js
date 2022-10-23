@@ -13,9 +13,16 @@ Given(/^User is on Login page$/, () => {
 	BasePage.visit()
 });
 
-Then(/^User fill Admin UI informations with (.*)$/, () => {
-	LoginPage.fillInputUsername(Cypress.env("username"))
-	LoginPage.fillInputPassword(Cypress.env("password"))
+Given(/^User fill Admin UI informations with (.*)$/, (information) => {
+	switch (information) {
+		case "valid information":
+			LoginPage.fillInputUsername(Cypress.env("username"))
+			LoginPage.fillInputPassword(Cypress.env("password"))
+			break;
+
+		default:
+			break;
+	}
 });
 
 When(/^User click on LOGIN IN button$/, () => {
