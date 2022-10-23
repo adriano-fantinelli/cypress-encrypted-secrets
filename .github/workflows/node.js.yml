@@ -14,40 +14,31 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Server run
-      uses: cypress-io/github-action@v4
+      
+    - name: Set up server
+      uses: actions/setup-node@v1
       with:
-        project: ./application/server
-        start: |
-          npm install
-          npm run prisma:generate
-          npm run docker:db
-          npm run db:init
-          npm start
-        wait-on: 'http://localhost:3000/api/'
-      
-    - name: Admin-ui run
-      working-directory: ./application/admin-ui
+        node-version: ${{ matrix.node-version }}
+    - name: Run backend nohup
       run: |
+        cd application/server 
         npm install
-        yarn start
+        npm run prisma:generate
+        npm run docker:db
+        npm run db:init
+        nohup npm start &
         
-  cypress-run-2:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node18.6.0-chrome105-ff104
-    needs: cypress-run
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
+    - name: Run frontend nohup
+      run: |
+        cd application/admin-ui 
+        npm install
+        nohup yarn start &
+        
     - name: Write the cypress.env.json file
-      working-directory: ./cypress-tests
       run: |
         echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
-      
+        
     - name: Cypress run
-      working-directory: ./cypress-tests
       run: |
        npm i
        npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
