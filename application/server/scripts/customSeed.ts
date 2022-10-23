@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import cypressEnv from '../../../cypress.env.json'
 
 export async function customSeed() {
   let client = new PrismaClient();
@@ -13,16 +12,5 @@ export async function customSeed() {
       username,
     },
   });
-
-  username = cypressEnv.username
-  const password = cypressEnv.password
-
-  await client.user.create({
-    data: {
-      username,
-      password
-    }
-  });
-
   client.$disconnect();
 }
