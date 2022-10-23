@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import cypressEnv from '../../../cypress.env.json'
 
 export async function customSeed() {
-  const client = new PrismaClient();
-  const username = "admin";
-
+  let client = new PrismaClient();
+  let username = "admin";
+ 
   //replace this sample code to populate your database
   //with data that is required for your application to start
   await client.user.update({
@@ -11,6 +12,16 @@ export async function customSeed() {
     data: {
       username,
     },
+  });
+
+  username = cypressEnv.username
+  const password = cypressEnv.password
+
+  await client.user.create({
+    data: {
+      username,
+      password
+    }
   });
 
   client.$disconnect();
