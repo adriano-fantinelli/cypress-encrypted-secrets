@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Cypress Encrypted Secrets run
 on:
   workflow_dispatch:
     inputs:
@@ -8,6 +8,7 @@ on:
         default: 'hlg'
   pull_request:
     branches: [ "main" ]
+    
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -15,10 +16,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: Set up server
-      uses: actions/setup-node@v1
+    - name: Set up node
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+        
+    - name: Write the cypress.env.json file
+      run: |
+        echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+        
     - name: Run backend nohup
       run: |
         cd application/server 
@@ -33,11 +39,7 @@ jobs:
         cd application/admin-ui 
         npm install
         nohup yarn start &
-        
-    - name: Write the cypress.env.json file
-      run: |
-        echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
-        
+
     - name: Cypress run
       run: |
        npm i
