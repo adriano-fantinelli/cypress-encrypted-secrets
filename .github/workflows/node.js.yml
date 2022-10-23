@@ -27,3 +27,18 @@ jobs:
         npm run docker:db
         npm run db:init
         nohup npm start &
+        
+    - name: Run frontend nohup
+      run: |
+        cd application/admin-ui 
+        npm install
+        nohup yarn start &
+        
+    - name: Write the cypress.env.json file
+      run: |
+        echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+        
+    - name: Cypress run
+      run: |
+       npm i
+       npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
