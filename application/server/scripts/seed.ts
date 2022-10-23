@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { Salt, parseSalt } from "../src/auth/password.service";
 import { hash } from "bcrypt";
 import { customSeed } from "./customSeed";
-import cypressEnv from '../../../cypress.env.json'
+import * as cypressEnv from '../../../cypress.env.json'
 
 if (require.main === module) {
   dotenv.config();
