@@ -41,7 +41,7 @@ module.exports = defineConfig({
 
       return config;
     },    
-    baseUrl: "http://10.1.1.30:3001",
+    baseUrl: "http://localhost:3001/",
     specPattern: 'cypress/integration/**/*.feature'
   }
 });
