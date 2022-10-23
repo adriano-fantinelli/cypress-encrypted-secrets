@@ -42,5 +42,3 @@ jobs:
 
     - name: Cypress run
       uses: cypress-io/github-action@v4
-      with: 
-        config-file: config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
