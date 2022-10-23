@@ -25,7 +25,7 @@ jobs:
       run: |
         echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
         
-    - name: Run backend nohup
+    - name: Run server
       run: |
         cd application/server 
         npm install
@@ -34,13 +34,13 @@ jobs:
         npm run db:init
         nohup npm start &
         
-    - name: Run frontend nohup
+    - name: Run admin-ui
       run: |
         cd application/admin-ui 
         npm install
         nohup yarn start &
 
     - name: Cypress run
-      run: |
-       npm i
-       npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
+      uses: cypress-io/github-action@v4
+      with: 
+        config-file: config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
