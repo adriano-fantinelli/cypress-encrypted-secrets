@@ -14,7 +14,7 @@ Create the cypress.env.json file with the data:
 }
 ```
 
-Install dependecies using:
+Install dependencies using:
 ```
 npm i
 ```
