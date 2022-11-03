@@ -1,11 +1,6 @@
 name: Cypress Encrypted Secrets run
 on:
   workflow_dispatch:
-    inputs:
-      amb:
-        description: 'Selecionar algum destes ambientes: dev / hlg'
-        required: false
-        default: 'hlg'
   pull_request:
     branches: [ "main" ]
     
@@ -14,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       
     - name: Set up node
       uses: actions/setup-node@v3
@@ -22,10 +17,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         
     - name: Write the cypress.env.json file
-      run: |
-        echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+      run: echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
         
-    - name: Run backend nohup
+    - name: Run server
       run: |
         cd application/server 
         npm install
@@ -34,13 +28,11 @@ jobs:
         npm run db:init
         nohup npm start &
         
-    - name: Run frontend nohup
+    - name: Run admin-ui
       run: |
         cd application/admin-ui 
         npm install
         nohup yarn start &
 
     - name: Cypress run
-      run: |
-       npm i
-       npx cypress run --config-file config/${{github.event.inputs.amb || env.DEFAULT_AMB}}.config.js
+      uses: cypress-io/github-action@v4
