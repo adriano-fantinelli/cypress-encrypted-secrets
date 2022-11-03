@@ -4,11 +4,11 @@ const el = require('./elements').ELEMENTS
 
 class LoginPage {
     fillInputUsername(usernameValue) {
-        cy.get(el.usernameInput).type(usernameValue)
+        cy.get(el.usernameInput).type(usernameValue, { log: false })
     }
 
     fillInputPassword(passwordValue) {
-        cy.get(el.passwordInput).type(passwordValue)
+        cy.get(el.passwordInput).type(passwordValue, { log: false })
     }
 
     clickLogInButton() {
