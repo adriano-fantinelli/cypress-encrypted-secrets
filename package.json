@@ -12,13 +12,8 @@
     }
   },
   "scripts": {
-    "cy:test": "cypress run --config video=false --env allure=true",
-    "cy:open": "cypress open",
-    "allure:clear": "rm -r allure-results/ allure-report || true",
-    "allure:report": "allure generate allure-results",
-    "test:reporter": "npx npm-run-all allure:clear test allure:report",
-    "allure:open": "allure open allure-report",
-    "report-cucumber-json": "cucumber --format json"
+    "cy:test": "cypress run",
+    "cy:open": "cypress open"
   },
   "license": "ISC",
   "devDependencies": {
